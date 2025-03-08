@@ -1,0 +1,333 @@
+<!-- templates/manual_entry.html -->
+{% extends "base.html" %}
+
+{% block head %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const monthSelect = document.getElementById('month');
+        const yearSelect = document.getElementById('year');
+        const shiftContainer = document.getElementById('shift-container');
+        
+        // Month/year change handler - update days based on month/year
+        function updateDayInputs() {
+            const month = parseInt(monthSelect.value);
+            const year = parseInt(yearSelect.value);
+            
+            // Create a date object with the last day of the selected month
+            const lastDay = new Date(year, month, 0).getDate();
+            
+            // Update day container
+            shiftContainer.innerHTML = '';
+            
+            // Create shift inputs for each day of the month
+            for (let day = 1; day <= lastDay; day++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'flex flex-col items-center';
+                
+                // Day label
+                const dayLabel = document.createElement('label');
+                dayLabel.className = 'text-xs font-semibold text-gray-600';
+                dayLabel.textContent = `Day ${day}`;
+                
+                // Shift select
+                const shiftSelect = document.createElement('select');
+                shiftSelect.className = 'mt-1 p-1 border border-gray-300 rounded text-sm w-16 focus:ring-fis-green focus:border-fis-green';
+                shiftSelect.name = `shift_${day}`;
+                
+                // Add options
+                const options = [
+                    { value: '', text: '-' },
+                    { value: 'G', text: 'G' },
+                    { value: 'S1', text: 'S1' },
+                    { value: 'S2', text: 'S2' },
+                    { value: 'S3', text: 'S3' },
+                    { value: 'W', text: 'W' },
+                    { value: 'V', text: 'V' },
+                    { value: 'T', text: 'T' },
+                    { value: 'O', text: 'O' }
+                ];
+                
+                // Add shift options
+                options.forEach(option => {
+                    const optionEl = document.createElement('option');
+                    optionEl.value = option.value;
+                    optionEl.textContent = option.text;
+                    shiftSelect.appendChild(optionEl);
+                });
+                
+                // Add change event to update class based on selection
+                shiftSelect.addEventListener('change', function() {
+                    this.className = 'mt-1 p-1 border border-gray-300 rounded text-sm w-16 focus:ring-fis-green focus:border-fis-green';
+                    if (this.value) {
+                        this.classList.add(`shift-${this.value}`);
+                    }
+                });
+                
+                // Add elements to container
+                dayDiv.appendChild(dayLabel);
+                dayDiv.appendChild(shiftSelect);
+                shiftContainer.appendChild(dayDiv);
+            }
+        }
+        
+        // Update on initial load
+        updateDayInputs();
+        
+        // Update when month/year changes
+        monthSelect.addEventListener('change', updateDayInputs);
+        yearSelect.addEventListener('change', updateDayInputs);
+        
+        // Form submission handler
+        document.getElementById('entry-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const employeeName = document.getElementById('employee-name').value.trim();
+            const employeeId = document.getElementById('employee-id').value.trim();
+            const department = document.getElementById('department').value.trim();
+            const month = parseInt(monthSelect.value);
+            const year = parseInt(yearSelect.value);
+            
+            // Validate required fields
+            if (!employeeName || !employeeId || !department) {
+                showAlert('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            // Collect shifts data
+            const shifts = {};
+            const shiftSelects = document.querySelectorAll('#shift-container select');
+            shiftSelects.forEach(select => {
+                const day = select.name.split('_')[1];
+                if (select.value) {
+                    shifts[day] = select.value;
+                }
+            });
+            
+            // Prepare data for submission
+            const entryData = {
+                employee_name: employeeName,
+                employee_id: employeeId,
+                department: department,
+                month: month,
+                year: year,
+                shifts: shifts
+            };
+            
+            // Disable submit button during submission
+            const submitButton = document.getElementById('submit-button');
+            submitButton.disabled = true;
+            submitButton.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Saving...
+            `;
+            
+            // Submit data
+            fetch('/save-manual-entry', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(entryData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert('Roster entry created successfully', 'success');
+                    
+                    // Redirect after successful submission
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 1000);
+                } else {
+                    showAlert(data.message || 'Error creating entry', 'error');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Save Entry';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showAlert('Error creating entry', 'error');
+                submitButton.disabled = false;
+                submitButton.textContent = 'Save Entry';
+            });
+        });
+        
+        // Show alert function
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alert-container');
+            const alertClass = type === 'error' 
+                ? 'bg-red-50 border-red-500 text-red-700' 
+                : 'bg-green-50 border-fis-green text-fis-dark-blue';
+            const iconName = type === 'error' ? 'alert-circle' : 'check-circle';
+            const iconColor = type === 'error' ? 'text-red-500' : 'text-fis-green';
+            
+            alertContainer.innerHTML = `
+                <div class="${alertClass} border-l-4 p-4 mb-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i data-lucide="${iconName}" class="h-5 w-5 ${iconColor}"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm">${message}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Reinitialize Lucide icons for the new alert
+            lucide.createIcons();
+            
+            // Auto-hide the alert after 5 seconds
+            setTimeout(() => {
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+    });
+</script>
+<style>
+    /* Shift colors */
+    .shift-G { background-color: rgba(229, 231, 235, 0.7); }
+    .shift-S1 { background-color: rgba(1, 91, 126, 0.3); }
+    .shift-S2 { background-color: rgba(75, 205, 62, 0.3); }
+    .shift-S3 { background-color: rgba(1, 40, 52, 0.3); }
+    .shift-W { background-color: rgba(80, 255, 72, 0.3); }
+    .shift-V { background-color: rgba(216, 180, 254, 0.7); }
+    .shift-T { background-color: rgba(199, 210, 254, 0.7); }
+    .shift-O { background-color: rgba(251, 207, 232, 0.7); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-sm border">
+    <div class="bg-fis-dark-blue rounded-t-lg p-4 border-b">
+        <h2 class="text-2xl font-bold text-center flex items-center justify-center gap-2 text-white">
+            <i data-lucide="user-plus" class="h-6 w-6"></i> Add Roster Entry
+        </h2>
+    </div>
+    
+    <div class="p-6">
+        <!-- Alert container -->
+        <div id="alert-container"></div>
+        
+        <form id="entry-form">
+            <!-- Period selection -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label for="month" class="block text-sm font-medium text-gray-700 mb-1">Month <span class="text-red-500">*</span></label>
+                    <select id="month" name="month" class="bg-white block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-fis-green focus:border-fis-green sm:text-sm p-2">
+                        {% for value, name in months %}
+                        <option value="{{ value }}" {% if value == current_month %}selected{% endif %}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="year" class="block text-sm font-medium text-gray-700 mb-1">Year <span class="text-red-500">*</span></label>
+                    <select id="year" name="year" class="bg-white block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-fis-green focus:border-fis-green sm:text-sm p-2">
+                        {% for value, display in years %}
+                        <option value="{{ value }}" {% if value == current_year %}selected{% endif %}>{{ display }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Employee information -->
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label for="employee-name" class="block text-sm font-medium text-gray-700 mb-1">Employee Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="employee-name" name="employee_name" class="bg-white block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-fis-green focus:border-fis-green sm:text-sm p-2">
+                </div>
+                <div>
+                    <label for="employee-id" class="block text-sm font-medium text-gray-700 mb-1">Employee ID <span class="text-red-500">*</span></label>
+                    <input type="text" id="employee-id" name="employee_id" class="bg-white block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-fis-green focus:border-fis-green sm:text-sm p-2">
+                </div>
+                <div>
+                    <label for="department" class="block text-sm font-medium text-gray-700 mb-1">Department <span class="text-red-500">*</span></label>
+                    <input type="text" id="department" name="department" class="bg-white block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-fis-green focus:border-fis-green sm:text-sm p-2">
+                </div>
+            </div>
+            
+            <!-- Shift schedule -->
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Shift Schedule</label>
+                <div class="bg-gray-50 p-4 rounded-md border">
+                    <div id="shift-container" class="flex flex-wrap gap-2 justify-start overflow-x-auto py-2">
+                        <!-- Day inputs will be dynamically generated here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Shift legend -->
+            <div class="bg-gray-50 rounded-md p-4 mb-6">
+                <h3 class="text-sm font-medium text-fis-dark-blue mb-2">Shift Legend</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-G rounded mr-2"></span>
+                        <span class="text-sm">G - General (9-5)</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-S1 rounded mr-2"></span>
+                        <span class="text-sm">S1 - Shift 1 (7-3)</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-S2 rounded mr-2"></span>
+                        <span class="text-sm">S2 - Shift 2 (3-11)</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-S3 rounded mr-2"></span>
+                        <span class="text-sm">S3 - Shift 3 (11-7)</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-W rounded mr-2"></span>
+                        <span class="text-sm">W - Weekend/Off</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-V rounded mr-2"></span>
+                        <span class="text-sm">V - Vacation</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-T rounded mr-2"></span>
+                        <span class="text-sm">T - Training</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-O rounded mr-2"></span>
+                        <span class="text-sm">O - On-Call</span>
+                    </div>
+                </div>
+            </div>
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label for="user-select" class="block text-sm font-medium text-gray-700 mb-1 dark:text-gray-300">Select Existing Employee</label>
+                    <div class="relative">
+                        <select id="user-select" class="bg-white dark:bg-gray-700 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-fis-green focus:border-fis-green sm:text-sm p-2 dark:text-white">
+                            <option value="">-- Select an employee --</option>
+                            <!-- This will be populated dynamically -->
+                        </select>
+                        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                            <i data-lucide="chevron-down" class="h-4 w-4 text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="text-sm text-gray-500 dark:text-gray-400">or</span>
+                    <button type="button" id="add-new-user-btn" class="ml-2 inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-fis-green hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green">
+                        <i data-lucide="user-plus" class="h-3 w-3 mr-1"></i>
+                        Add New
+                    </button>
+                </div>
+            </div>
+            
+            
+            <!-- Submit button -->
+            <div class="flex justify-end">
+                <button id="submit-button" type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-fis-green hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green">
+                    Save Entry
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

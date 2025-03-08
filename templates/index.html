@@ -1,0 +1,354 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block head %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('file-upload');
+        const fileInfo = document.getElementById('file-info');
+        const uploadForm = document.getElementById('upload-form');
+        const uploadButton = document.getElementById('upload-button');
+        const alertContainer = document.getElementById('alert-container');
+        
+        // Month year selection
+        const monthSelect = document.getElementById('month');
+        const yearSelect = document.getElementById('year');
+        
+        // Handle drag and drop events
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight() {
+            dropArea.classList.add('border-fis-green', 'bg-green-50');
+            dropArea.classList.remove('border-gray-300');
+        }
+        
+        function unhighlight() {
+            dropArea.classList.remove('border-fis-green', 'bg-green-50');
+            dropArea.classList.add('border-gray-300');
+        }
+        
+        // Handle dropped files
+        dropArea.addEventListener('drop', handleDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length) {
+                fileInput.files = files;
+                updateFileInfo(files[0]);
+            }
+        }
+        
+        // Handle file input change
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length) {
+                updateFileInfo(fileInput.files[0]);
+            }
+        });
+        
+        function updateFileInfo(file) {
+            // Validate file type
+            const validTypes = [
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            ];
+            
+            // Check file extension as a fallback
+            const extension = file.name.split('.').pop().toLowerCase();
+            const validExtensions = ['xlsx', 'xls'];
+            
+            if (!validTypes.includes(file.type) && !validExtensions.includes(extension)) {
+                showAlert('Please select an Excel file (.xlsx or .xls)', 'error');
+                fileInput.value = '';
+                fileInfo.classList.add('hidden');
+                return;
+            }
+            
+            // Update file info display
+            const fileName = document.getElementById('file-name');
+            const fileSize = document.getElementById('file-size');
+            
+            fileName.textContent = file.name;
+            fileSize.textContent = `${(file.size / 1024).toFixed(1)} KB · Excel File`;
+            
+            fileInfo.classList.remove('hidden');
+            dropArea.classList.add('bg-green-50', 'border-fis-green');
+        }
+        
+        // Remove file button
+        document.getElementById('remove-file').addEventListener('click', function() {
+            fileInput.value = '';
+            fileInfo.classList.add('hidden');
+            dropArea.classList.remove('bg-green-50', 'border-fis-green');
+        });
+        
+        // Download template button
+        document.getElementById('download-template').addEventListener('click', function() {
+            const month = monthSelect.value;
+            const year = yearSelect.value;
+            window.location.href = `/download-template/${month}/${year}`;
+        });
+        
+        // Update month year selection changes - update heading
+        function updateSelectedPeriodDisplay() {
+            const monthName = monthSelect.options[monthSelect.selectedIndex].text;
+            const year = yearSelect.value;
+            document.getElementById('selected-period').textContent = `${monthName} ${year}`;
+        }
+        
+        monthSelect.addEventListener('change', updateSelectedPeriodDisplay);
+        yearSelect.addEventListener('change', updateSelectedPeriodDisplay);
+        
+        // Initial update
+        updateSelectedPeriodDisplay();
+        
+        // Handle form submission
+        uploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!fileInput.files.length) {
+                showAlert('Please select a file first', 'error');
+                return;
+            }
+            
+            // Start upload
+            uploadButton.disabled = true;
+            uploadButton.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Uploading...
+            `;
+            
+            const formData = new FormData(uploadForm);
+            
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert(data.message, 'success');
+                    // Redirect to roster page after successful upload
+                    setTimeout(function() {
+                        window.location.href = data.redirect;
+                    }, 1000);
+                } else {
+                    showAlert(data.message, 'error');
+                    uploadButton.disabled = false;
+                    uploadButton.textContent = 'Upload Roster';
+                }
+            })
+            .catch(error => {
+                showAlert('An error occurred during upload', 'error');
+                uploadButton.disabled = false;
+                uploadButton.textContent = 'Upload Roster';
+            });
+        });
+        
+        function showAlert(message, type) {
+            const alertClass = type === 'error' 
+                ? 'bg-red-50 border-red-500 text-red-700' 
+                : 'bg-green-50 border-fis-green text-fis-dark-blue';
+            const iconName = type === 'error' ? 'alert-circle' : 'check-circle';
+            const iconColor = type === 'error' ? 'text-red-500' : 'text-fis-green';
+            
+            alertContainer.innerHTML = `
+                <div class="${alertClass} border-l-4 p-4 mb-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i data-lucide="${iconName}" class="h-5 w-5 ${iconColor}"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm">${message}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Reinitialize Lucide icons for the new alert
+            lucide.createIcons();
+            
+            // Auto-hide the alert after 5 seconds
+            setTimeout(() => {
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col md:flex-row gap-6">
+    <!-- Left Side - File Upload -->
+    <div class="w-full md:w-2/3">
+        <div class="bg-white rounded-lg shadow-sm border">
+            <div class="bg-fis-dark-blue rounded-t-lg p-4 border-b">
+                <h2 class="text-2xl font-bold text-center flex items-center justify-center gap-2 text-white">
+                    <i data-lucide="upload" class="h-6 w-6"></i> Upload Roster
+                </h2>
+                <p class="text-center text-sm text-gray-300 mt-1">
+                    Upload roster for <span id="selected-period" class="font-semibold"></span>
+                </p>
+            </div>
+            
+            <div class="p-6">
+                <div id="alert-container"></div>
+                
+                <form id="upload-form" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                    <!-- Month and Year Selection -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="month" class="block text-sm font-medium text-gray-700 mb-1">Month</label>
+                            <select id="month" name="month" class="bg-white block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-fis-green focus:border-fis-green sm:text-sm p-2">
+                                {% for value, name in months %}
+                                <option value="{{ value }}" {% if value == current_month %}selected{% endif %}>{{ name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label for="year" class="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                            <select id="year" name="year" class="bg-white block w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-fis-green focus:border-fis-green sm:text-sm p-2">
+                                {% for value, display in years %}
+                                <option value="{{ value }}" {% if value == current_year %}selected{% endif %}>{{ display }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- File Drop Area -->
+                    <div id="drop-area" class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center mb-4 transition-colors hover:border-fis-green">
+                        <div id="upload-prompt" class="space-y-4">
+                            <div class="flex justify-center">
+                                <i data-lucide="file-up" class="h-12 w-12 text-gray-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-lg font-medium">Drag and drop your file here</p>
+                                <p class="text-sm text-gray-500">or</p>
+                            </div>
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green" onclick="document.getElementById('file-upload').click()">
+                                Browse Files
+                            </button>
+                        </div>
+                        
+                        <div id="file-info" class="hidden">
+                            <div class="flex items-center justify-center space-x-4">
+                                <i data-lucide="file" class="h-8 w-8 text-fis-green"></i>
+                                <div class="text-left">
+                                    <p id="file-name" class="text-sm font-medium"></p>
+                                    <p id="file-size" class="text-xs text-gray-500"></p>
+                                </div>
+                                <button id="remove-file" type="button" class="text-red-500 hover:text-red-700 hover:bg-red-50 rounded-full p-1">
+                                    <i data-lucide="x" class="h-5 w-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <input id="file-upload" type="file" name="file" accept=".xlsx,.xls" class="hidden">
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <button id="upload-button" type="submit" class="flex-1 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-fis-green hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green">
+                            Upload Roster
+                        </button>
+                        
+                        <button id="download-template" type="button" class="flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-fis-dark-blue bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green">
+                            <i data-lucide="download" class="h-4 w-4 mr-2"></i>
+                            Download Template
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="mt-4 text-center text-xs text-gray-500">
+                    <p>Supported formats: .xlsx, .xls</p>
+                    <p>Maximum file size: 20MB</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Side - Quick Links & Info -->
+    <div class="w-full md:w-1/3">
+        <div class="bg-white rounded-lg shadow-sm border mb-6">
+            <div class="bg-fis-dark-blue rounded-t-lg p-4 border-b">
+                <h3 class="font-bold text-white">Quick Links</h3>
+            </div>
+            <div class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="{{ url_for('roster') }}" class="flex items-center text-fis-blue hover:text-fis-dark-blue">
+                            <i data-lucide="calendar" class="h-4 w-4 mr-2"></i>
+                            View Current Month Roster
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('manual_entry_form') }}" class="flex items-center text-fis-blue hover:text-fis-dark-blue">
+                            <i data-lucide="edit-3" class="h-4 w-4 mr-2"></i>
+                            Manual Roster Entry
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('list_uploads') }}" class="flex items-center text-fis-blue hover:text-fis-dark-blue">
+                            <i data-lucide="list" class="h-4 w-4 mr-2"></i>
+                            Upload History
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-sm border">
+            <div class="bg-fis-dark-blue rounded-t-lg p-4 border-b">
+                <h3 class="font-bold text-white">Shift Codes</h3>
+            </div>
+            <div class="p-4">
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 bg-gray-200 rounded mr-2"></span>
+                        <span>G - General (9-5)</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-S1 rounded mr-2"></span>
+                        <span>S1 - Shift 1 (7-3)</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-S2 rounded mr-2"></span>
+                        <span>S2 - Shift 2 (3-11)</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-S3 rounded mr-2"></span>
+                        <span>S3 - Shift 3 (11-7)</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-W rounded mr-2"></span>
+                        <span>W - Weekend/Off</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="inline-block w-8 h-6 shift-V rounded mr-2"></span>
+                        <span>V - Vacation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

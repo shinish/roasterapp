@@ -1,0 +1,570 @@
+<!-- templates/roster.html -->
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+    /* Alternating column colors */
+    .day-column:nth-child(odd) {
+        background-color: rgba(1, 40, 52, 0.05); /* Light FIS dark blue */
+    }
+    
+    .day-column:nth-child(even) {
+        background-color: rgba(255, 255, 255, 1); /* White for even columns */
+    }
+    
+    /* Shift colors */
+    .shift-G { background-color: rgba(229, 231, 235, 0.7); }  /* General */
+    .shift-S1 { background-color: rgba(1, 91, 126, 0.3); }    /* FIS blue */
+    .shift-S2 { background-color: rgba(75, 205, 62, 0.3); }   /* FIS green */
+    .shift-S3 { background-color: rgba(1, 40, 52, 0.3); }     /* FIS dark blue */
+    .shift-W { background-color: rgba(80, 255, 72, 0.3); }    /* FIS bright green */
+    .shift-V { background-color: rgba(216, 180, 254, 0.7); }  /* Purple */
+    .shift-T { background-color: rgba(199, 210, 254, 0.7); }  /* Light blue */
+    .shift-O { background-color: rgba(251, 207, 232, 0.7); }  /* Pink */
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize edit modals
+        const editButtons = document.querySelectorAll('.edit-user-btn');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const userId = this.getAttribute('data-id');
+                fetchUserAndOpenModal(userId);
+            });
+        });
+        
+        // Delete user functionality
+        const deleteButtons = document.querySelectorAll('.delete-user-btn');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const userId = this.getAttribute('data-id');
+                const userName = this.getAttribute('data-name') || 'this user';
+                confirmDelete(userId, userName);
+            });
+        });
+        
+        // Period selector change
+        document.getElementById('period-selector').addEventListener('change', function() {
+            const value = this.value;
+            if (value) {
+                const [month, year] = value.split('_');
+                window.location.href = `/roster/${month}/${year}`;
+            }
+        });
+        
+        // Fetch user data and open modal
+        function fetchUserAndOpenModal(userId) {
+            fetch(`/user/${userId}`)
+                .then(response => response.json())
+                .then(user => {
+                    // Set up the modal for editing
+                    document.getElementById('edit-user-id').value = userId;
+                    
+                    // Fill in basic fields
+                    document.getElementById('edit-employee-name').value = user.employee_name || '';
+                    document.getElementById('edit-employee-id').value = user.employee_id || '';
+                    document.getElementById('edit-department').value = user.department || '';
+                    
+                    // Fill in shift fields
+                    const shiftContainer = document.getElementById('shift-container');
+                    shiftContainer.innerHTML = '';
+                    
+                    // Get all day columns (1 to days in month)
+                    const dayColumns = document.querySelectorAll('th.day-header');
+                    
+                    // Create shift selectors for each day
+                    dayColumns.forEach(column => {
+                        const day = column.getAttribute('data-day');
+                        const currentShift = user[day] || '';
+                        
+                        const dayDiv = document.createElement('div');
+                        dayDiv.className = 'flex flex-col items-center';
+                        
+                        const dayLabel = document.createElement('label');
+                        dayLabel.className = 'text-xs font-semibold text-gray-600';
+                        dayLabel.textContent = `Day ${day}`;
+                        
+                        const shiftSelect = document.createElement('select');
+                        shiftSelect.className = 'mt-1 p-1 border border-gray-300 rounded text-sm w-16 focus:ring-fis-green focus:border-fis-green';
+                        shiftSelect.name = `shift_${day}`;
+                        
+                        // Add options
+                        const options = [
+                            { value: '', text: '-' },
+                            { value: 'G', text: 'G' },
+                            { value: 'S1', text: 'S1' },
+                            { value: 'S2', text: 'S2' },
+                            { value: 'S3', text: 'S3' },
+                            { value: 'W', text: 'W' },
+                            { value: 'V', text: 'V' },
+                            { value: 'T', text: 'T' },
+                            { value: 'O', text: 'O' }
+                        ];
+                        
+                        options.forEach(option => {
+                            const optionEl = document.createElement('option');
+                            optionEl.value = option.value;
+                            optionEl.textContent = option.text;
+                            if (option.value === currentShift) {
+                                optionEl.selected = true;
+                            }
+                            shiftSelect.appendChild(optionEl);
+                        });
+                        
+                        // Add change event to update class based on selection
+                        shiftSelect.addEventListener('change', function() {
+                            this.className = 'mt-1 p-1 border border-gray-300 rounded text-sm w-16 focus:ring-fis-green focus:border-fis-green';
+                            if (this.value) {
+                                this.classList.add(`shift-${this.value}`);
+                            }
+                        });
+                        
+                        // Set initial class
+                        if (currentShift) {
+                            shiftSelect.classList.add(`shift-${currentShift}`);
+                        }
+                        
+                        dayDiv.appendChild(dayLabel);
+                        dayDiv.appendChild(shiftSelect);
+                        shiftContainer.appendChild(dayDiv);
+                    });
+                    
+                    // Show the modal
+                    document.getElementById('edit-modal').classList.remove('hidden');
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                    showAlert('Error fetching user data', 'error');
+                });
+        }
+        
+        // Save edited user
+        document.getElementById('save-edit-btn').addEventListener('click', function() {
+            const userId = document.getElementById('edit-user-id').value;
+            
+            // Collect form data
+            const userData = {
+                employee_name: document.getElementById('edit-employee-name').value,
+                employee_id: document.getElementById('edit-employee-id').value,
+                department: document.getElementById('edit-department').value
+            };
+            
+            // Collect shift data
+            const shiftSelects = document.querySelectorAll('#shift-container select');
+            shiftSelects.forEach(select => {
+                const day = select.name.split('_')[1];
+                userData[day] = select.value;
+            });
+            
+            // Send update request
+            fetch(`/user/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Close modal
+                    document.getElementById('edit-modal').classList.add('hidden');
+                    
+                    // Show success message
+                    showAlert('User updated successfully', 'success');
+                    
+                    // Reload page to show updated data
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    showAlert(data.message || 'Error updating user', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating user:', error);
+                showAlert('Error updating user', 'error');
+            });
+        });
+        
+        // Close modal button
+        document.getElementById('close-edit-modal').addEventListener('click', function() {
+            document.getElementById('edit-modal').classList.add('hidden');
+        });
+        
+        // Delete user confirmation
+        function confirmDelete(userId, userName) {
+            const confirmModal = document.getElementById('delete-modal');
+            const confirmText = document.getElementById('delete-confirm-text');
+            const confirmBtn = document.getElementById('confirm-delete-btn');
+            
+            confirmText.textContent = `Are you sure you want to delete ${userName}?`;
+            confirmBtn.setAttribute('data-id', userId);
+            
+            confirmModal.classList.remove('hidden');
+        }
+        
+        // Cancel delete
+        document.getElementById('cancel-delete-btn').addEventListener('click', function() {
+            document.getElementById('delete-modal').classList.add('hidden');
+        });
+        
+        // Confirm delete
+        document.getElementById('confirm-delete-btn').addEventListener('click', function() {
+            const userId = this.getAttribute('data-id');
+            
+            fetch(`/user/${userId}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Close modal
+                document.getElementById('delete-modal').classList.add('hidden');
+                
+                if (data.success) {
+                    // Show success message
+                    showAlert('User deleted successfully', 'success');
+                    
+                    // Remove user row from table
+                    const userRow = document.querySelector(`tr[data-id="${userId}"]`);
+                    if (userRow) {
+                        userRow.remove();
+                    }
+                } else {
+                    showAlert(data.message || 'Error deleting user', 'error');
+                }
+            })
+            .catch(error => {
+                document.getElementById('delete-modal').classList.add('hidden');
+                showAlert('Error deleting user', 'error');
+            });
+        });
+        
+        // Show alert
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alert-container');
+            const alertClass = type === 'error' 
+                ? 'bg-red-50 border-red-500 text-red-700' 
+                : 'bg-green-50 border-fis-green text-fis-dark-blue';
+            const iconName = type === 'error' ? 'alert-circle' : 'check-circle';
+            const iconColor = type === 'error' ? 'text-red-500' : 'text-fis-green';
+            
+            alertContainer.innerHTML = `
+                <div class="${alertClass} border-l-4 p-4 mb-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i data-lucide="${iconName}" class="h-5 w-5 ${iconColor}"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm">${message}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Reinitialize Lucide icons for the new alert
+            lucide.createIcons();
+            
+            // Auto-hide the alert after 5 seconds
+            setTimeout(() => {
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Alert container for messages -->
+    <div id="alert-container"></div>
+    
+    <!-- Header and controls -->
+    <div class="bg-white rounded-lg shadow-sm border p-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <h2 class="text-xl font-bold text-fis-dark-blue">{{ month_name }} {{ current_year }} Roster</h2>
+                <p class="text-sm text-gray-500">
+                    {% if users|length > 0 %}
+                    Showing {{ users|length }} employee records
+                    {% else %}
+                    No records found for this period
+                    {% endif %}
+                </p>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-2">
+                <!-- Period selector -->
+                <select id="period-selector" class="block w-full sm:w-auto pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-fis-green focus:border-fis-green sm:text-sm rounded-md">
+                    <option value="">Select period...</option>
+                    {% for period in periods %}
+                    <option value="{{ period.month }}_{{ period.year }}" {% if period.selected %}selected{% endif %}>
+                        {{ period.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+                
+                <!-- Action buttons -->
+                <a href="{{ url_for('index') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-fis-dark-blue bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green">
+                    <i data-lucide="upload" class="h-4 w-4 mr-2"></i>
+                    Upload New Roster
+                </a>
+                
+                <a href="{{ url_for('manual_entry_form') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-fis-green hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green">
+                    <i data-lucide="plus" class="h-4 w-4 mr-2"></i>
+                    Add Entry
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Roster table -->
+    <div class="bg-white rounded-lg shadow-sm border overflow-hidden">
+        {% if users and users|length > 0 %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead>
+                    <tr>
+                        <!-- Fixed columns -->
+                        <th scope="col" class="sticky left-0 z-10 bg-fis-dark-blue px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border-r">
+                            Employee
+                        </th>
+                        <th scope="col" class="bg-fis-dark-blue px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border-r">
+                            ID
+                        </th>
+                        <th scope="col" class="bg-fis-dark-blue px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider border-r">
+                            Department
+                        </th>
+                        
+                        <!-- Day columns -->
+                        {% for day in day_columns %}
+                        <th scope="col" class="day-header day-column bg-fis-dark-blue px-2 py-3 text-center text-xs font-medium text-white uppercase tracking-wider border-r" data-day="{{ day }}">
+                            {{ day }}
+                        </th>
+                        {% endfor %}
+                        
+                        <!-- Actions column -->
+                        <th scope="col" class="bg-fis-dark-blue px-4 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for user in users %}
+                    <tr data-id="{{ user._id }}">
+                        <!-- Fixed columns -->
+                        <td class="sticky left-0 z-10 bg-white px-4 py-2 whitespace-nowrap text-sm font-medium text-fis-dark-blue border-r">
+                            {{ user.employee_name }}
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500 border-r">
+                            {{ user.employee_id }}
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500 border-r">
+                            {{ user.department }}
+                        </td>
+                        
+                        <!-- Day columns with shifts -->
+                        {% for day in day_columns %}
+                        {% set shift = user[day|string] %}
+                        <td class="day-column px-2 py-2 whitespace-nowrap text-center text-sm font-medium border-r">
+                            {% if shift %}
+                            <span class="inline-block w-full py-1 rounded shift-{{ shift }}">{{ shift }}</span>
+                            {% else %}
+                            <span class="text-gray-300">-</span>
+                            {% endif %}
+                        </td>
+                        {% endfor %}
+                        
+                        <!-- Actions column -->
+                        <td class="bg-gray-50 px-4 py-2 whitespace-nowrap text-center text-sm font-medium">
+                            <button 
+                                class="text-fis-blue hover:text-fis-dark-blue mr-2 edit-user-btn" 
+                                data-id="{{ user._id }}"
+                                data-name="{{ user.employee_name }}">
+                                <i data-lucide="edit-2" class="h-4 w-4"></i>
+                            </button>
+                            <button 
+                                class="text-red-600 hover:text-red-900 delete-user-btn" 
+                                data-id="{{ user._id }}"
+                                data-name="{{ user.employee_name }}">
+                                <i data-lucide="trash-2" class="h-4 w-4"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="p-8 text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+                <i data-lucide="users" class="h-8 w-8 text-fis-blue"></i>
+            </div>
+            <h3 class="text-lg font-medium text-fis-dark-blue">No roster data found for {{ month_name }} {{ current_year }}</h3>
+            <p class="mt-2 text-sm text-gray-500">
+                Upload an Excel file or create entries manually to populate the roster.
+            </p>
+            <div class="mt-6 flex justify-center gap-4">
+                <a href="{{ url_for('index') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-fis-green hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green">
+                    <i data-lucide="upload" class="h-4 w-4 mr-2"></i>
+                    Upload Roster
+                </a>
+                <a href="{{ url_for('manual_entry_form') }}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-fis-dark-blue bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green">
+                    <i data-lucide="plus" class="h-4 w-4 mr-2"></i>
+                    Add Entry Manually
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Legend -->
+    <div class="bg-white rounded-lg shadow-sm border p-4">
+        <h3 class="text-sm font-medium text-fis-dark-blue mb-2">Shift Legend</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="flex items-center">
+                <span class="inline-block w-8 h-6 shift-G rounded mr-2"></span>
+                <span class="text-sm">G - General (9-5)</span>
+            </div>
+            <div class="flex items-center">
+                <span class="inline-block w-8 h-6 shift-S1 rounded mr-2"></span>
+                <span class="text-sm">S1 - Shift 1 (7-3)</span>
+            </div>
+            <div class="flex items-center">
+                <span class="inline-block w-8 h-6 shift-S2 rounded mr-2"></span>
+                <span class="text-sm">S2 - Shift 2 (3-11)</span>
+            </div>
+            <div class="flex items-center">
+                <span class="inline-block w-8 h-6 shift-S3 rounded mr-2"></span>
+                <span class="text-sm">S3 - Shift 3 (11-7)</span>
+            </div>
+            <div class="flex items-center">
+                <span class="inline-block w-8 h-6 shift-W rounded mr-2"></span>
+                <span class="text-sm">W - Weekend/Off</span>
+            </div>
+            <div class="flex items-center">
+                <span class="inline-block w-8 h-6 shift-V rounded mr-2"></span>
+                <span class="text-sm">V - Vacation</span>
+            </div>
+            <div class="flex items-center">
+                <span class="inline-block w-8 h-6 shift-T rounded mr-2"></span>
+                <span class="text-sm">T - Training</span>
+            </div>
+            <div class="flex items-center">
+                <span class="inline-block w-8 h-6 shift-O rounded mr-2"></span>
+                <span class="text-sm">O - On-Call</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit User Modal -->
+<div id="edit-modal" class="fixed inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+        
+        <!-- Modal panel -->
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full">
+            <div class="bg-fis-dark-blue px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-white sm:mx-0 sm:h-10 sm:w-10">
+                        <i data-lucide="edit-3" class="h-6 w-6 text-fis-dark-blue"></i>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                        <h3 class="text-lg leading-6 font-medium text-white" id="modal-title">
+                            Edit Roster Entry
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white px-4 py-5 sm:p-6">
+                <input type="hidden" id="edit-user-id">
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label for="edit-employee-name" class="block text-sm font-medium text-gray-700">
+                            Employee Name
+                        </label>
+                        <input type="text" id="edit-employee-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 sm:text-sm focus:ring-fis-green focus:border-fis-green">
+                    </div>
+                    <div>
+                        <label for="edit-employee-id" class="block text-sm font-medium text-gray-700">
+                            Employee ID
+                        </label>
+                        <input type="text" id="edit-employee-id" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 sm:text-sm focus:ring-fis-green focus:border-fis-green">
+                    </div>
+                    <div>
+                        <label for="edit-department" class="block text-sm font-medium text-gray-700">
+                            Department
+                        </label>
+                        <input type="text" id="edit-department" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 sm:text-sm focus:ring-fis-green focus:border-fis-green">
+                    </div>
+                </div>
+                
+                <!-- Shift schedule -->
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Shift Schedule
+                    </label>
+                    <div id="shift-container" class="flex flex-wrap gap-2 justify-start overflow-x-auto py-2">
+                        <!-- Shift inputs will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button id="save-edit-btn" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-fis-green text-base font-medium text-white hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green sm:ml-3 sm:w-auto sm:text-sm">
+                    Save Changes
+                </button>
+                <button id="close-edit-modal" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="delete-modal" class="fixed inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+        
+        <!-- Modal panel -->
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-fis-dark-blue px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                        <i data-lucide="alert-triangle" class="h-6 w-6 text-red-600"></i>
+                    </div>
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-white" id="modal-title">
+                            Delete Roster Entry
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white px-4 py-3 sm:px-6">
+                <p class="text-sm text-gray-500" id="delete-confirm-text">
+                    Are you sure you want to delete this user?
+                </p>
+                <p class="mt-2 text-sm text-red-600">
+                    This action cannot be undone.
+                </p>
+            </div>
+            
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button id="confirm-delete-btn" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    Delete
+                </button>
+                <button id="cancel-delete-btn" type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fis-green sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,354 @@
+2025-03-08 14:46:51,125 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 14:46:51,125 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 14:46:51,150 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-08 14:46:51,151 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-08 14:46:51,151 - werkzeug - INFO -  * Restarting with stat
+2025-03-08 14:46:51,502 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 14:46:51,502 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 14:46:51,523 - werkzeug - WARNING -  * Debugger is active!
+2025-03-08 14:46:51,531 - werkzeug - INFO -  * Debugger PIN: 571-956-497
+2025-03-08 14:46:57,096 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:46:57] "GET / HTTP/1.1" 200 -
+2025-03-08 14:47:05,545 - __main__ - INFO - Saving temporary file to uploads/roster_20250308_144705_5fb08ead.xlsx
+2025-03-08 14:47:05,546 - __main__ - INFO - Processing Excel file with merged cells: uploads/roster_20250308_144705_5fb08ead.xlsx
+2025-03-08 14:47:05,562 - __main__ - INFO - Sheet 'Sheet1' has 2 merged ranges
+2025-03-08 14:47:05,579 - __main__ - INFO - Saved processed Excel file to: uploads/roster_20250308_144705_5fb08ead_processed.xlsx
+2025-03-08 14:47:05,579 - __main__ - INFO - Reading processed Excel file uploads/roster_20250308_144705_5fb08ead_processed.xlsx
+2025-03-08 14:47:05,595 - __main__ - INFO - Extracted 6 records from Excel file
+2025-03-08 14:47:05,600 - __main__ - INFO - Stored file in GridFS with ID 67cc0b111bb2d121ef80797f
+2025-03-08 14:47:05,601 - __main__ - INFO - Created upload record with ID 67cc0b111bb2d121ef807981
+2025-03-08 14:47:05,601 - __main__ - INFO - Inserted 6 records into users collection
+2025-03-08 14:47:05,602 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:47:05] "POST /upload HTTP/1.1" 200 -
+2025-03-08 14:47:06,630 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:47:06] "GET /roster/67cc0b111bb2d121ef807981 HTTP/1.1" 200 -
+2025-03-08 14:47:19,518 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:47:19] "GET /roster HTTP/1.1" 200 -
+2025-03-08 14:47:23,123 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:47:23] "GET /roster/67cc0b111bb2d121ef807981 HTTP/1.1" 200 -
+2025-03-08 14:47:26,773 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:47:26] "GET /roster/67cc07d5c71de6771a4fdf70 HTTP/1.1" 200 -
+2025-03-08 14:47:29,273 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:47:29] "GET /roster/67cc07ddc71de6771a4fdf79 HTTP/1.1" 200 -
+2025-03-08 14:47:31,382 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:47:31] "GET /roster/67cc0785c71de6771a4fdf66 HTTP/1.1" 200 -
+2025-03-08 14:47:34,215 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:47:34] "GET /roster/67cc0b111bb2d121ef807981 HTTP/1.1" 200 -
+2025-03-08 14:47:43,900 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:47:43] "GET /user/67cc0b111bb2d121ef807982 HTTP/1.1" 200 -
+2025-03-08 14:52:08,362 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:52:08] "GET / HTTP/1.1" 200 -
+2025-03-08 14:52:09,645 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:52:09] "GET /roster HTTP/1.1" 200 -
+2025-03-08 14:52:10,831 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 14:52:10] "GET / HTTP/1.1" 200 -
+2025-03-08 15:09:36,369 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 15:09:36,369 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 15:09:36,404 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-08 15:09:36,404 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-08 15:09:36,405 - werkzeug - INFO -  * Restarting with stat
+2025-03-08 15:09:36,834 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 15:09:36,835 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 15:09:36,858 - werkzeug - WARNING -  * Debugger is active!
+2025-03-08 15:09:36,869 - werkzeug - INFO -  * Debugger PIN: 571-956-497
+2025-03-08 15:09:46,103 - __main__ - ERROR - Error displaying roster: 'month'
+2025-03-08 15:09:46,117 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:09:46] "GET /roster HTTP/1.1" 200 -
+2025-03-08 15:09:46,329 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 15:09:46,329 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:09:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 15:09:48,202 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:09:48] "GET / HTTP/1.1" 200 -
+2025-03-08 15:10:10,364 - __main__ - INFO - Saving temporary file to uploads/roster_20250308_151010_3b40080d.xlsx
+2025-03-08 15:10:10,366 - __main__ - INFO - Processing Excel file with merged cells: uploads/roster_20250308_151010_3b40080d.xlsx
+2025-03-08 15:10:10,386 - __main__ - INFO - Sheet 'Sheet1' has 2 merged ranges
+2025-03-08 15:10:10,401 - __main__ - INFO - Saved processed Excel file to: uploads/roster_20250308_151010_3b40080d_processed.xlsx
+2025-03-08 15:10:10,401 - __main__ - INFO - Reading processed Excel file uploads/roster_20250308_151010_3b40080d_processed.xlsx
+2025-03-08 15:10:10,420 - __main__ - INFO - Extracted 6 records from Excel file
+2025-03-08 15:10:10,423 - __main__ - INFO - Stored file in GridFS with ID 67cc107a1ae312da332d8e66
+2025-03-08 15:10:10,424 - __main__ - INFO - Created upload record with ID 67cc107a1ae312da332d8e68
+2025-03-08 15:10:10,424 - __main__ - INFO - Overwritten 0 records for March 2025
+2025-03-08 15:10:10,427 - __main__ - ERROR - Error during file upload: batch op errors occurred, full error: {'writeErrors': [{'index': 0, 'code': 11000, 'errmsg': "E11000 duplicate key error collection: userRoster.users index: _id_ dup key: { _id: ObjectId('67cc107a1ae312da332d8e69') }", 'keyPattern': {'_id': 1}, 'keyValue': {'_id': ObjectId('67cc107a1ae312da332d8e69')}, 'op': {'March': 'COPITAL MARKETS', 'Employee Name': 'Shinish', 'Empid': 1234, '1': 'W', '2': 'W', '3': 'S2', '4': 'S1', '5': 'G', '6': 'W', '7': 'W', '8': 'S2', '9': 'S1', '10': 'G', '11': 'W', '12': 'W', '13': 'S2', '14': 'S1', '15': 'G', '16': 'W', '17': 'W', '18': 'S2', '19': 'S1', '20': 'G', '21': 'W', '22': 'W', '23': 'S2', '24': 'S1', '25': 'G', '26': 'W', '27': 'W', '28': 'S2', '29': 'S1', '30': 'G', '31': 'S1', 'month': 3, 'year': 2025, '_id': ObjectId('67cc107a1ae312da332d8e69'), 'upload_id': '67cc107a1ae312da332d8e68'}}], 'writeConcernErrors': [], 'nInserted': 0, 'nUpserted': 0, 'nMatched': 0, 'nModified': 0, 'nRemoved': 0, 'upserted': []}
+2025-03-08 15:10:10,429 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/shinish/roster/app.py", line 999, in upload_file
+    result = mongo.db.users.insert_many(processed_records)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/_csot.py", line 119, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/synchronous/collection.py", line 975, in insert_many
+    blk.execute(write_concern, session, _Op.INSERT)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/synchronous/bulk.py", line 751, in execute
+    return self.execute_command(generator, write_concern, session, operation)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/synchronous/bulk.py", line 614, in execute_command
+    _raise_bulk_write_error(full_result)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/bulk_shared.py", line 131, in _raise_bulk_write_error
+    raise BulkWriteError(full_result)
+pymongo.errors.BulkWriteError: batch op errors occurred, full error: {'writeErrors': [{'index': 0, 'code': 11000, 'errmsg': "E11000 duplicate key error collection: userRoster.users index: _id_ dup key: { _id: ObjectId('67cc107a1ae312da332d8e69') }", 'keyPattern': {'_id': 1}, 'keyValue': {'_id': ObjectId('67cc107a1ae312da332d8e69')}, 'op': {'March': 'COPITAL MARKETS', 'Employee Name': 'Shinish', 'Empid': 1234, '1': 'W', '2': 'W', '3': 'S2', '4': 'S1', '5': 'G', '6': 'W', '7': 'W', '8': 'S2', '9': 'S1', '10': 'G', '11': 'W', '12': 'W', '13': 'S2', '14': 'S1', '15': 'G', '16': 'W', '17': 'W', '18': 'S2', '19': 'S1', '20': 'G', '21': 'W', '22': 'W', '23': 'S2', '24': 'S1', '25': 'G', '26': 'W', '27': 'W', '28': 'S2', '29': 'S1', '30': 'G', '31': 'S1', 'month': 3, 'year': 2025, '_id': ObjectId('67cc107a1ae312da332d8e69'), 'upload_id': '67cc107a1ae312da332d8e68'}}], 'writeConcernErrors': [], 'nInserted': 0, 'nUpserted': 0, 'nMatched': 0, 'nModified': 0, 'nRemoved': 0, 'upserted': []}
+
+2025-03-08 15:10:10,430 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:10:10] "[35m[1mPOST /upload HTTP/1.1[0m" 500 -
+2025-03-08 15:10:18,961 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:10:18] "GET / HTTP/1.1" 200 -
+2025-03-08 15:10:19,118 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 15:10:19,119 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:10:19] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 15:10:26,043 - __main__ - ERROR - Error displaying roster: 'month'
+2025-03-08 15:10:26,045 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:10:26] "GET /roster HTTP/1.1" 200 -
+2025-03-08 15:10:27,375 - __main__ - ERROR - Error showing manual entry form: name 'current_year' is not defined
+2025-03-08 15:10:27,376 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:10:27] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 15:10:28,729 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:10:28] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 15:10:32,602 - __main__ - INFO - Deleted file 67cc107a1ae312da332d8e66 from GridFS
+2025-03-08 15:10:32,604 - __main__ - INFO - Deleted 0 users associated with upload 67cc107a1ae312da332d8e68
+2025-03-08 15:10:32,604 - __main__ - INFO - Deleted upload record 67cc107a1ae312da332d8e68
+2025-03-08 15:10:32,605 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:10:32] "POST /delete-upload/67cc107a1ae312da332d8e68 HTTP/1.1" 200 -
+2025-03-08 15:11:44,713 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:11:44] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 15:11:44,850 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 15:11:44,851 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:11:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 15:11:50,776 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:11:50] "GET / HTTP/1.1" 200 -
+2025-03-08 15:11:50,904 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 15:11:50,904 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:11:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 15:12:01,727 - __main__ - ERROR - Error displaying roster: 'month'
+2025-03-08 15:12:01,729 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:12:01] "GET /roster HTTP/1.1" 200 -
+2025-03-08 15:12:01,851 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 15:12:01,851 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:12:01] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 15:12:09,252 - __main__ - ERROR - Error showing manual entry form: name 'current_year' is not defined
+2025-03-08 15:12:09,253 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:12:09] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 15:12:10,712 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:12:10] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 15:12:26,412 - __main__ - INFO - Deleted file 67cc0b111bb2d121ef80797f from GridFS
+2025-03-08 15:12:26,414 - __main__ - INFO - Deleted 6 users associated with upload 67cc0b111bb2d121ef807981
+2025-03-08 15:12:26,415 - __main__ - INFO - Deleted upload record 67cc0b111bb2d121ef807981
+2025-03-08 15:12:26,415 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:12:26] "POST /delete-upload/67cc0b111bb2d121ef807981 HTTP/1.1" 200 -
+2025-03-08 15:13:47,655 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:13:47] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 15:13:49,681 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:13:49] "GET / HTTP/1.1" 200 -
+2025-03-08 15:13:51,906 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:13:51] "GET /roster HTTP/1.1" 200 -
+2025-03-08 15:13:59,257 - __main__ - ERROR - Error showing manual entry form: name 'current_year' is not defined
+2025-03-08 15:13:59,259 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:13:59] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 15:14:02,058 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:14:02] "GET / HTTP/1.1" 200 -
+2025-03-08 15:14:04,951 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:14:04] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 15:14:07,478 - __main__ - INFO - Deleted file 67cc0785c71de6771a4fdf64 from GridFS
+2025-03-08 15:14:07,479 - __main__ - INFO - Deleted 0 users associated with upload 67cc0785c71de6771a4fdf66
+2025-03-08 15:14:07,480 - __main__ - INFO - Deleted upload record 67cc0785c71de6771a4fdf66
+2025-03-08 15:14:07,480 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 15:14:07] "POST /delete-upload/67cc0785c71de6771a4fdf66 HTTP/1.1" 200 -
+2025-03-08 15:17:11,377 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 15:17:11,378 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 15:17:11,404 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-08 15:17:11,404 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-08 15:17:11,405 - werkzeug - INFO -  * Restarting with stat
+2025-03-08 15:17:11,740 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 15:17:11,740 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 15:17:11,759 - werkzeug - WARNING -  * Debugger is active!
+2025-03-08 15:17:11,766 - werkzeug - INFO -  * Debugger PIN: 571-956-497
+2025-03-08 17:50:39,831 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 17:50:39,836 - __main__ - INFO - Creating users collection
+2025-03-08 17:50:39,922 - __main__ - INFO - Creating uploads collection
+2025-03-08 17:50:39,982 - __main__ - INFO - GridFS collections will be created when first file is uploaded
+2025-03-08 17:50:39,982 - __main__ - INFO - Database initialization completed successfully
+2025-03-08 17:50:39,982 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 17:50:40,022 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-08 17:50:40,023 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-08 17:50:40,024 - werkzeug - INFO -  * Restarting with stat
+2025-03-08 17:50:40,433 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 17:50:40,437 - __main__ - INFO - GridFS collections will be created when first file is uploaded
+2025-03-08 17:50:40,437 - __main__ - INFO - Database initialization completed successfully
+2025-03-08 17:50:40,437 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 17:50:40,458 - werkzeug - WARNING -  * Debugger is active!
+2025-03-08 17:50:40,466 - werkzeug - INFO -  * Debugger PIN: 571-956-497
+2025-03-08 17:50:58,285 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:50:58] "GET / HTTP/1.1" 200 -
+2025-03-08 17:51:30,366 - __main__ - INFO - Saving temporary file to uploads/roster_20250308_175130_b4405d2b.xlsx
+2025-03-08 17:51:30,367 - __main__ - INFO - Processing Excel file with merged cells: uploads/roster_20250308_175130_b4405d2b.xlsx
+2025-03-08 17:51:30,378 - __main__ - INFO - Sheet 'Sheet1' has 2 merged ranges
+2025-03-08 17:51:30,391 - __main__ - INFO - Saved processed Excel file to: uploads/roster_20250308_175130_b4405d2b_processed.xlsx
+2025-03-08 17:51:30,392 - __main__ - INFO - Reading processed Excel file uploads/roster_20250308_175130_b4405d2b_processed.xlsx
+2025-03-08 17:51:30,409 - __main__ - INFO - Extracted 6 records from Excel file
+2025-03-08 17:51:30,487 - __main__ - INFO - Stored file in GridFS with ID 67cc364a977a6cec2f0066a1
+2025-03-08 17:51:30,488 - __main__ - INFO - Created upload record with ID 67cc364a977a6cec2f0066a3
+2025-03-08 17:51:30,490 - __main__ - INFO - Overwritten 0 records for March 2025
+2025-03-08 17:51:30,492 - __main__ - ERROR - Error during file upload: batch op errors occurred, full error: {'writeErrors': [{'index': 0, 'code': 11000, 'errmsg': "E11000 duplicate key error collection: userRoster.users index: _id_ dup key: { _id: ObjectId('67cc364a977a6cec2f0066a4') }", 'keyPattern': {'_id': 1}, 'keyValue': {'_id': ObjectId('67cc364a977a6cec2f0066a4')}, 'op': {'March': 'COPITAL MARKETS', 'Employee Name': 'Shinish', 'Empid': 1234, '1': 'W', '2': 'W', '3': 'S2', '4': 'S1', '5': 'G', '6': 'W', '7': 'W', '8': 'S2', '9': 'S1', '10': 'G', '11': 'W', '12': 'W', '13': 'S2', '14': 'S1', '15': 'G', '16': 'W', '17': 'W', '18': 'S2', '19': 'S1', '20': 'G', '21': 'W', '22': 'W', '23': 'S2', '24': 'S1', '25': 'G', '26': 'W', '27': 'W', '28': 'S2', '29': 'S1', '30': 'G', '31': 'S1', 'month': 3, 'year': 2025, '_id': ObjectId('67cc364a977a6cec2f0066a4'), 'upload_id': '67cc364a977a6cec2f0066a3'}}], 'writeConcernErrors': [], 'nInserted': 0, 'nUpserted': 0, 'nMatched': 0, 'nModified': 0, 'nRemoved': 0, 'upserted': []}
+2025-03-08 17:51:30,495 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/shinish/roster/app.py", line 1070, in upload_file
+    result = mongo.db.users.insert_many(processed_records)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/_csot.py", line 119, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/synchronous/collection.py", line 975, in insert_many
+    blk.execute(write_concern, session, _Op.INSERT)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/synchronous/bulk.py", line 751, in execute
+    return self.execute_command(generator, write_concern, session, operation)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/synchronous/bulk.py", line 614, in execute_command
+    _raise_bulk_write_error(full_result)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/bulk_shared.py", line 131, in _raise_bulk_write_error
+    raise BulkWriteError(full_result)
+pymongo.errors.BulkWriteError: batch op errors occurred, full error: {'writeErrors': [{'index': 0, 'code': 11000, 'errmsg': "E11000 duplicate key error collection: userRoster.users index: _id_ dup key: { _id: ObjectId('67cc364a977a6cec2f0066a4') }", 'keyPattern': {'_id': 1}, 'keyValue': {'_id': ObjectId('67cc364a977a6cec2f0066a4')}, 'op': {'March': 'COPITAL MARKETS', 'Employee Name': 'Shinish', 'Empid': 1234, '1': 'W', '2': 'W', '3': 'S2', '4': 'S1', '5': 'G', '6': 'W', '7': 'W', '8': 'S2', '9': 'S1', '10': 'G', '11': 'W', '12': 'W', '13': 'S2', '14': 'S1', '15': 'G', '16': 'W', '17': 'W', '18': 'S2', '19': 'S1', '20': 'G', '21': 'W', '22': 'W', '23': 'S2', '24': 'S1', '25': 'G', '26': 'W', '27': 'W', '28': 'S2', '29': 'S1', '30': 'G', '31': 'S1', 'month': 3, 'year': 2025, '_id': ObjectId('67cc364a977a6cec2f0066a4'), 'upload_id': '67cc364a977a6cec2f0066a3'}}], 'writeConcernErrors': [], 'nInserted': 0, 'nUpserted': 0, 'nMatched': 0, 'nModified': 0, 'nRemoved': 0, 'upserted': []}
+
+2025-03-08 17:51:30,496 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:51:30] "[35m[1mPOST /upload HTTP/1.1[0m" 500 -
+2025-03-08 17:51:37,344 - __main__ - INFO - Saving temporary file to uploads/roster_20250308_175137_89ea8e34.xlsx
+2025-03-08 17:51:37,344 - __main__ - INFO - Processing Excel file with merged cells: uploads/roster_20250308_175137_89ea8e34.xlsx
+2025-03-08 17:51:37,360 - __main__ - INFO - Sheet 'Sheet1' has 2 merged ranges
+2025-03-08 17:51:37,374 - __main__ - INFO - Saved processed Excel file to: uploads/roster_20250308_175137_89ea8e34_processed.xlsx
+2025-03-08 17:51:37,374 - __main__ - INFO - Reading processed Excel file uploads/roster_20250308_175137_89ea8e34_processed.xlsx
+2025-03-08 17:51:37,387 - __main__ - INFO - Extracted 6 records from Excel file
+2025-03-08 17:51:37,391 - __main__ - INFO - Stored file in GridFS with ID 67cc3651977a6cec2f0066aa
+2025-03-08 17:51:37,391 - __main__ - INFO - Created upload record with ID 67cc3651977a6cec2f0066ac
+2025-03-08 17:51:37,393 - __main__ - INFO - Overwritten 6 records for March 2025
+2025-03-08 17:51:37,394 - __main__ - ERROR - Error during file upload: batch op errors occurred, full error: {'writeErrors': [{'index': 0, 'code': 11000, 'errmsg': "E11000 duplicate key error collection: userRoster.users index: _id_ dup key: { _id: ObjectId('67cc3651977a6cec2f0066ad') }", 'keyPattern': {'_id': 1}, 'keyValue': {'_id': ObjectId('67cc3651977a6cec2f0066ad')}, 'op': {'March': 'COPITAL MARKETS', 'Employee Name': 'Shinish', 'Empid': 1234, '1': 'W', '2': 'W', '3': 'S2', '4': 'S1', '5': 'G', '6': 'W', '7': 'W', '8': 'S2', '9': 'S1', '10': 'G', '11': 'W', '12': 'W', '13': 'S2', '14': 'S1', '15': 'G', '16': 'W', '17': 'W', '18': 'S2', '19': 'S1', '20': 'G', '21': 'W', '22': 'W', '23': 'S2', '24': 'S1', '25': 'G', '26': 'W', '27': 'W', '28': 'S2', '29': 'S1', '30': 'G', '31': 'S1', 'month': 3, 'year': 2025, '_id': ObjectId('67cc3651977a6cec2f0066ad'), 'upload_id': '67cc3651977a6cec2f0066ac'}}], 'writeConcernErrors': [], 'nInserted': 0, 'nUpserted': 0, 'nMatched': 0, 'nModified': 0, 'nRemoved': 0, 'upserted': []}
+2025-03-08 17:51:37,394 - __main__ - ERROR - Traceback (most recent call last):
+  File "/Users/shinish/roster/app.py", line 1070, in upload_file
+    result = mongo.db.users.insert_many(processed_records)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/_csot.py", line 119, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/synchronous/collection.py", line 975, in insert_many
+    blk.execute(write_concern, session, _Op.INSERT)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/synchronous/bulk.py", line 751, in execute
+    return self.execute_command(generator, write_concern, session, operation)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/synchronous/bulk.py", line 614, in execute_command
+    _raise_bulk_write_error(full_result)
+  File "/Users/shinish/roster/.venv/lib/python3.10/site-packages/pymongo/bulk_shared.py", line 131, in _raise_bulk_write_error
+    raise BulkWriteError(full_result)
+pymongo.errors.BulkWriteError: batch op errors occurred, full error: {'writeErrors': [{'index': 0, 'code': 11000, 'errmsg': "E11000 duplicate key error collection: userRoster.users index: _id_ dup key: { _id: ObjectId('67cc3651977a6cec2f0066ad') }", 'keyPattern': {'_id': 1}, 'keyValue': {'_id': ObjectId('67cc3651977a6cec2f0066ad')}, 'op': {'March': 'COPITAL MARKETS', 'Employee Name': 'Shinish', 'Empid': 1234, '1': 'W', '2': 'W', '3': 'S2', '4': 'S1', '5': 'G', '6': 'W', '7': 'W', '8': 'S2', '9': 'S1', '10': 'G', '11': 'W', '12': 'W', '13': 'S2', '14': 'S1', '15': 'G', '16': 'W', '17': 'W', '18': 'S2', '19': 'S1', '20': 'G', '21': 'W', '22': 'W', '23': 'S2', '24': 'S1', '25': 'G', '26': 'W', '27': 'W', '28': 'S2', '29': 'S1', '30': 'G', '31': 'S1', 'month': 3, 'year': 2025, '_id': ObjectId('67cc3651977a6cec2f0066ad'), 'upload_id': '67cc3651977a6cec2f0066ac'}}], 'writeConcernErrors': [], 'nInserted': 0, 'nUpserted': 0, 'nMatched': 0, 'nModified': 0, 'nRemoved': 0, 'upserted': []}
+
+2025-03-08 17:51:37,395 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:51:37] "[35m[1mPOST /upload HTTP/1.1[0m" 500 -
+2025-03-08 17:52:33,592 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:52:33] "GET /roster HTTP/1.1" 200 -
+2025-03-08 17:52:33,727 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 17:52:33,730 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:52:33] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 17:52:40,919 - __main__ - ERROR - Error showing manual entry form: manual_entry.html
+2025-03-08 17:52:40,920 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:52:40] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 17:52:42,685 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:52:42] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 17:53:04,066 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:53:04] "GET / HTTP/1.1" 200 -
+2025-03-08 17:56:23,412 - werkzeug - INFO -  * Detected change in '/Users/shinish/roster/app.py', reloading
+2025-03-08 17:56:23,965 - werkzeug - INFO -  * Restarting with stat
+2025-03-08 17:56:24,484 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 17:56:24,486 - __main__ - INFO - Database initialization completed successfully
+2025-03-08 17:56:24,487 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 17:56:24,509 - werkzeug - WARNING -  * Debugger is active!
+2025-03-08 17:56:24,516 - werkzeug - INFO -  * Debugger PIN: 571-956-497
+2025-03-08 17:56:30,618 - werkzeug - INFO -  * Detected change in '/Users/shinish/roster/app.py', reloading
+2025-03-08 17:56:31,135 - werkzeug - INFO -  * Restarting with stat
+2025-03-08 17:56:31,523 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 17:56:31,526 - __main__ - INFO - Database initialization completed successfully
+2025-03-08 17:56:31,527 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 17:56:31,546 - werkzeug - WARNING -  * Debugger is active!
+2025-03-08 17:56:31,551 - werkzeug - INFO -  * Debugger PIN: 571-956-497
+2025-03-08 17:57:58,198 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:57:58] "GET / HTTP/1.1" 200 -
+2025-03-08 17:58:10,611 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 17:58:10,614 - __main__ - INFO - Database initialization completed successfully
+2025-03-08 17:58:10,614 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 17:58:10,646 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-08 17:58:10,646 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-08 17:58:10,647 - werkzeug - INFO -  * Restarting with stat
+2025-03-08 17:58:11,038 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 17:58:11,042 - __main__ - INFO - Database initialization completed successfully
+2025-03-08 17:58:11,042 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 17:58:11,066 - werkzeug - WARNING -  * Debugger is active!
+2025-03-08 17:58:11,074 - werkzeug - INFO -  * Debugger PIN: 571-956-497
+2025-03-08 17:58:14,630 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:14] "GET / HTTP/1.1" 200 -
+2025-03-08 17:58:18,118 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 17:58:18,121 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:18] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 17:58:22,702 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:22] "GET /roster HTTP/1.1" 200 -
+2025-03-08 17:58:24,112 - __main__ - ERROR - Error showing manual entry form: manual_entry.html
+2025-03-08 17:58:24,113 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:24] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 17:58:25,925 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:25] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 17:58:27,799 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:27] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 17:58:32,514 - __main__ - INFO - Deleted file 67cc364a977a6cec2f0066a1 from GridFS
+2025-03-08 17:58:32,515 - __main__ - INFO - Deleted 0 users associated with upload 67cc364a977a6cec2f0066a3
+2025-03-08 17:58:32,515 - __main__ - INFO - Deleted upload record 67cc364a977a6cec2f0066a3
+2025-03-08 17:58:32,516 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:32] "POST /delete-upload/67cc364a977a6cec2f0066a3 HTTP/1.1" 200 -
+2025-03-08 17:58:37,826 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:37] "GET / HTTP/1.1" 200 -
+2025-03-08 17:58:39,209 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:39] "GET / HTTP/1.1" 200 -
+2025-03-08 17:58:40,336 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:40] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 17:58:42,753 - __main__ - INFO - Deleted file 67cc3651977a6cec2f0066aa from GridFS
+2025-03-08 17:58:42,755 - __main__ - INFO - Deleted 0 users associated with upload 67cc3651977a6cec2f0066ac
+2025-03-08 17:58:42,755 - __main__ - INFO - Deleted upload record 67cc3651977a6cec2f0066ac
+2025-03-08 17:58:42,756 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:42] "POST /delete-upload/67cc3651977a6cec2f0066ac HTTP/1.1" 200 -
+2025-03-08 17:58:45,437 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:45] "GET /roster HTTP/1.1" 200 -
+2025-03-08 17:58:49,438 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:49] "GET / HTTP/1.1" 200 -
+2025-03-08 17:58:49,574 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 17:58:49,575 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:49] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 17:58:55,750 - __main__ - INFO - Saving temporary file to uploads/roster_20250308_175855_893e3649.xlsx
+2025-03-08 17:58:55,750 - __main__ - INFO - Processing Excel file with merged cells: uploads/roster_20250308_175855_893e3649.xlsx
+2025-03-08 17:58:55,762 - __main__ - INFO - Sheet 'Sheet1' has 2 merged ranges
+2025-03-08 17:58:55,775 - __main__ - INFO - Saved processed Excel file to: uploads/roster_20250308_175855_893e3649_processed.xlsx
+2025-03-08 17:58:55,775 - __main__ - INFO - Reading processed Excel file uploads/roster_20250308_175855_893e3649_processed.xlsx
+2025-03-08 17:58:55,788 - __main__ - INFO - Extracted 6 records from Excel file
+2025-03-08 17:58:55,792 - __main__ - INFO - Stored file in GridFS with ID 67cc3807f5af07f7e03e37ac
+2025-03-08 17:58:55,794 - __main__ - INFO - Created upload record with ID 67cc3807f5af07f7e03e37ae
+2025-03-08 17:58:55,795 - __main__ - INFO - Deleted 6 existing records for 3/2025
+2025-03-08 17:58:55,799 - __main__ - INFO - Inserted 6 new records for 3/2025
+2025-03-08 17:58:55,799 - __main__ - INFO - Overwritten 6 records for March 2025
+2025-03-08 17:58:55,800 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:55] "POST /upload HTTP/1.1" 200 -
+2025-03-08 17:58:56,821 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 17:58:56] "GET /roster/3/2025 HTTP/1.1" 200 -
+2025-03-08 18:01:13,129 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:01:13] "GET / HTTP/1.1" 200 -
+2025-03-08 18:01:13,267 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 18:01:13,268 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:01:13] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 18:01:15,031 - __main__ - ERROR - Error showing manual entry form: manual_entry.html
+2025-03-08 18:01:15,032 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:01:15] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 18:01:29,060 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:01:29] "GET / HTTP/1.1" 200 -
+2025-03-08 18:04:37,309 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:04:37] "GET /roster HTTP/1.1" 200 -
+2025-03-08 18:04:37,498 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 18:04:37,499 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:04:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 18:04:41,270 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:04:41] "GET /roster HTTP/1.1" 200 -
+2025-03-08 18:04:44,263 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:04:44] "GET / HTTP/1.1" 200 -
+2025-03-08 18:05:04,215 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:05:04] "GET /roster HTTP/1.1" 200 -
+2025-03-08 18:05:04,348 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 18:05:04,349 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:05:04] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 18:07:06,998 - __main__ - ERROR - Error showing manual entry form: manual_entry.html
+2025-03-08 18:07:07,000 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:07:07] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 18:10:21,135 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:10:21] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 18:10:21,343 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 18:10:21,344 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:10:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 18:11:59,967 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:11:59] "POST /save-manual-entry HTTP/1.1" 200 -
+2025-03-08 18:12:01,015 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:12:01] "GET /roster/5/2025 HTTP/1.1" 200 -
+2025-03-08 18:12:08,162 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:12:08] "GET /roster/3/2025 HTTP/1.1" 200 -
+2025-03-08 18:12:10,854 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:12:10] "GET /roster/5/2025 HTTP/1.1" 200 -
+2025-03-08 18:12:29,826 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:12:29] "GET / HTTP/1.1" 200 -
+2025-03-08 18:12:34,342 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:12:34] "GET /download-template/3/2025 HTTP/1.1" 200 -
+2025-03-08 18:13:10,952 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:13:10] "GET /roster HTTP/1.1" 200 -
+2025-03-08 18:13:20,455 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:13:20] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 18:14:40,447 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:14:40] "POST /save-manual-entry HTTP/1.1" 200 -
+2025-03-08 18:14:41,500 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:14:41] "GET /roster/3/2025 HTTP/1.1" 200 -
+2025-03-08 18:14:43,295 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:14:43] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 18:14:45,486 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:14:45] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 18:14:47,860 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:14:47] "GET /roster HTTP/1.1" 200 -
+2025-03-08 18:15:01,041 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:15:01] "GET /roster/5/2025 HTTP/1.1" 200 -
+2025-03-08 18:38:00,694 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:38:00] "GET /roster/5/2025 HTTP/1.1" 200 -
+2025-03-08 18:38:15,161 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:38:15] "GET / HTTP/1.1" 200 -
+2025-03-08 18:38:17,564 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:38:17] "GET /roster HTTP/1.1" 200 -
+2025-03-08 18:38:23,267 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:38:23] "GET / HTTP/1.1" 200 -
+2025-03-08 18:38:26,172 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:38:26] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 18:38:29,329 - __main__ - INFO - Deleted file 67cc3807f5af07f7e03e37ac from GridFS
+2025-03-08 18:38:29,330 - __main__ - INFO - Deleted 0 users associated with upload 67cc3807f5af07f7e03e37ae
+2025-03-08 18:38:29,330 - __main__ - INFO - Deleted upload record 67cc3807f5af07f7e03e37ae
+2025-03-08 18:38:29,331 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:38:29] "POST /delete-upload/67cc3807f5af07f7e03e37ae HTTP/1.1" 200 -
+2025-03-08 18:38:32,346 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:38:32] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 18:38:38,402 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:38:38] "GET /roster HTTP/1.1" 200 -
+2025-03-08 18:41:45,537 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:41:45] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 18:41:45,734 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 18:41:45,735 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:41:45] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 18:42:01,298 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:42:01] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 18:42:01,404 - __main__ - WARNING - 404 error: http://localhost:5000/favicon.ico
+2025-03-08 18:42:01,406 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:42:01] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-08 18:42:06,773 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:42:06] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 18:42:08,513 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:42:08] "GET /roster HTTP/1.1" 200 -
+2025-03-08 18:42:10,473 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:42:10] "GET / HTTP/1.1" 200 -
+2025-03-08 18:42:38,766 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 18:42:38] "GET / HTTP/1.1" 200 -
+2025-03-08 19:21:22,745 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 19:21:22,748 - __main__ - INFO - Database initialization completed successfully
+2025-03-08 19:21:22,748 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 19:21:22,774 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-08 19:21:22,774 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-08 19:21:22,775 - werkzeug - INFO -  * Restarting with stat
+2025-03-08 19:21:23,124 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 19:21:23,129 - __main__ - INFO - Database initialization completed successfully
+2025-03-08 19:21:23,129 - __main__ - INFO - Upload folder created at /Users/shinish/roster/uploads
+2025-03-08 19:21:23,149 - werkzeug - WARNING -  * Debugger is active!
+2025-03-08 19:21:23,156 - werkzeug - INFO -  * Debugger PIN: 571-956-497
+2025-03-08 19:21:57,761 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:21:57] "GET / HTTP/1.1" 200 -
+2025-03-08 19:22:21,924 - __main__ - INFO - Saving temporary file to uploads/roster_20250308_192221_77ffa18b.xlsx
+2025-03-08 19:22:21,925 - __main__ - INFO - Processing Excel file with merged cells: uploads/roster_20250308_192221_77ffa18b.xlsx
+2025-03-08 19:22:21,937 - __main__ - INFO - Sheet 'Sheet1' has 2 merged ranges
+2025-03-08 19:22:21,949 - __main__ - INFO - Saved processed Excel file to: uploads/roster_20250308_192221_77ffa18b_processed.xlsx
+2025-03-08 19:22:21,949 - __main__ - INFO - Reading processed Excel file uploads/roster_20250308_192221_77ffa18b_processed.xlsx
+2025-03-08 19:22:21,960 - __main__ - INFO - Extracted 6 records from Excel file
+2025-03-08 19:22:21,964 - __main__ - INFO - Stored file in GridFS with ID 67cc4b953103e09e575e45f3
+2025-03-08 19:22:21,965 - __main__ - INFO - Created upload record with ID 67cc4b953103e09e575e45f5
+2025-03-08 19:22:21,966 - __main__ - INFO - Deleted 7 existing records for 3/2025
+2025-03-08 19:22:21,966 - __main__ - INFO - Inserted 6 new records for 3/2025
+2025-03-08 19:22:21,966 - __main__ - INFO - Overwritten 7 records for March 2025
+2025-03-08 19:22:21,966 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:22:21] "POST /upload HTTP/1.1" 200 -
+2025-03-08 19:22:22,992 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:22:22] "GET /roster/3/2025 HTTP/1.1" 200 -
+2025-03-08 19:22:44,203 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:22:44] "GET / HTTP/1.1" 200 -
+2025-03-08 19:23:00,114 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:23:00] "GET /download-template/3/2025 HTTP/1.1" 200 -
+2025-03-08 19:23:23,022 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:23:23] "GET /roster HTTP/1.1" 200 -
+2025-03-08 19:23:24,116 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:23:24] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 19:24:33,298 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:24:33] "POST /save-manual-entry HTTP/1.1" 200 -
+2025-03-08 19:24:34,331 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:24:34] "GET /roster/4/2025 HTTP/1.1" 200 -
+2025-03-08 19:24:48,127 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:24:48] "GET /roster/5/2025 HTTP/1.1" 200 -
+2025-03-08 19:24:50,654 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:24:50] "GET /roster/3/2025 HTTP/1.1" 200 -
+2025-03-08 19:24:57,236 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:24:57] "GET /manual-entry HTTP/1.1" 200 -
+2025-03-08 19:24:59,135 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:24:59] "GET /uploads HTTP/1.1" 200 -
+2025-03-08 19:26:10,105 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:26:10] "GET / HTTP/1.1" 200 -
+2025-03-08 19:26:13,681 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:26:13] "GET /roster HTTP/1.1" 200 -
