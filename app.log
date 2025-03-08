@@ -352,3 +352,16 @@ pymongo.errors.BulkWriteError: batch op errors occurred, full error: {'writeErro
 2025-03-08 19:24:59,135 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:24:59] "GET /uploads HTTP/1.1" 200 -
 2025-03-08 19:26:10,105 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:26:10] "GET / HTTP/1.1" 200 -
 2025-03-08 19:26:13,681 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 19:26:13] "GET /roster HTTP/1.1" 200 -
+2025-03-08 21:56:51,535 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 21:56:51,540 - __main__ - INFO - Database initialization completed successfully
+2025-03-08 21:56:51,540 - __main__ - INFO - Upload folder created at /Users/shinish/roasterapp/uploads
+2025-03-08 21:56:51,595 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-03-08 21:56:51,595 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-08 21:56:51,596 - werkzeug - INFO -  * Restarting with stat
+2025-03-08 21:56:51,942 - __main__ - INFO - Successfully connected to MongoDB
+2025-03-08 21:56:51,946 - __main__ - INFO - Database initialization completed successfully
+2025-03-08 21:56:51,946 - __main__ - INFO - Upload folder created at /Users/shinish/roasterapp/uploads
+2025-03-08 21:56:51,965 - werkzeug - WARNING -  * Debugger is active!
+2025-03-08 21:56:51,973 - werkzeug - INFO -  * Debugger PIN: 500-245-314
+2025-03-08 21:57:00,350 - werkzeug - INFO - 127.0.0.1 - - [08/Mar/2025 21:57:00] "GET / HTTP/1.1" 200 -
